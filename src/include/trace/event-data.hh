@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "types.hh"
+#include <types.hh>
 
 namespace trace
 {

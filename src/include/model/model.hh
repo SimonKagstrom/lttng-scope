@@ -4,6 +4,8 @@
 #include <wx/dynarray.h>
 #include <wx/hashmap.h>
 
+#include <types.hh>
+
 namespace model
 {
 	class Context;
@@ -15,27 +17,31 @@ namespace model
 	class Model
 	{
 	public:
-		class IContextListener
+		class IModelListener
 		{
 		public:
-			virtual void contextSwitch(Context &oldContext, Context &newContext) = 0;
-		};
+			virtual void contextSwitch(trace::Event &curEvent,
+					Context &oldContext, Context &newContext) = 0;
 
-		class IStateListener
-		{
-		public:
-			virtual void stateSwitch(State &oldState, State &newState) = 0;
+			virtual void stateSwitch(trace::Event &curEvent,
+					State &oldState, State &newState) = 0;
+
+			virtual void event(trace::Event &curEvent) = 0;
 		};
 
 		static Model &getInstance();
 
 		Model();
 
+
 		void addContext(Context &ctx);
 		void addState(State &state);
 
 		Context *contextByEvent(trace::Event &ev);
 		State *stateByEvent(trace::Event &ev);
+
+
+		void run(timestamp_t start, timestamp_t end);
 
 	private:
 		ArrayOfContexts m_contexts;

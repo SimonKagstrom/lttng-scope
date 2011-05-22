@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <wx/dynarray.h>
 
-#include "types.hh"
+#include <types.hh>
 
 namespace trace
 {
