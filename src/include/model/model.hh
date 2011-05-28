@@ -29,10 +29,19 @@ namespace model
 			virtual void event(trace::Event &curEvent) = 0;
 		};
 
-		static Model &getInstance();
+		class IEventHandler
+		{
+		public:
+			/**
+			 * Handle an event (push a contexts etc)
+			 */
+			virtual void handleEvent(trace::Event &curEvent) = 0;
+		};
+
+
+		static Model &getInstance(int cpu);
 
 		Model();
-
 
 		void addContext(Context &ctx);
 		void addState(State &state);
@@ -40,13 +49,17 @@ namespace model
 		Context *contextByEvent(trace::Event &ev);
 		State *stateByEvent(trace::Event &ev);
 
+		void registerListener(IModelListener &listener);
+
 
 		void run(timestamp_t start, timestamp_t end);
 
 	private:
 		ArrayOfContexts m_contexts;
 		ArrayOfStates m_states;
+		IModelListener *m_listener;
 
-		static Model *g_instance;
+		/* Per CPU */
+		static Model **g_instances;
 	};
 }
