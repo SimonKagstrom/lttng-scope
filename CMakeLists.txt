@@ -19,7 +19,10 @@ find_package(wxWidgets COMPONENTS core base REQUIRED)
 include( ${wxWidgets_USE_FILE} )
 
 set (lttng-scope_SRCS
-    src/main.cpp)
+    src/main.cpp
+    src/scope-view.cpp
+    src/app.cpp
+    )
 
 include_directories (${GLIB2_INCLUDE_DIRS})
 include_directories (src/include/)

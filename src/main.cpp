@@ -4,7 +4,7 @@
 #include <trace/event-data.hh>
 #include <model/model.hh>
 
-int main(int argc, const char *argv[])
+int parse_args(int argc, const char *argv[])
 {
 	return 0;
 }
